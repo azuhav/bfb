@@ -1,0 +1,14 @@
+services:
+  web:
+    image: web
+    build:
+      context: ./web
+      dockerfile: Dockerfile.prod
+    container_name: web
+    restart: unless-stopped
+    networks:
+      - internal_network
+
+networks:
+  internal_network:
+    driver: bridge
