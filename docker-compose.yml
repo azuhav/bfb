@@ -3,16 +3,25 @@ services:
     image: web
     build:
       context: ./web
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-prod
     container_name: web
     command: npm run build
-    ports:
-      - "3000:3000"
     environment:
       - PORT=3000
     restart: unless-stopped
     volumes:
       - ./web/src:/usr/src/app/src
+    networks:
+      - internal_network
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./web/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - web
     networks:
       - internal_network
 
