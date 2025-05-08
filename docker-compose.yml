@@ -3,9 +3,16 @@ services:
     image: web
     build:
       context: ./web
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     container_name: web
+    command: npm run build
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
     restart: unless-stopped
+    volumes:
+      - ./web/src:/usr/src/app/src
     networks:
       - internal_network
 
