@@ -5,12 +5,10 @@ services:
       context: ./web
       dockerfile: Dockerfile-prod
     container_name: web
-    command: npm run build
+    command: npm run build && tail -f /dev/null
     environment:
       - PORT=3000
     restart: unless-stopped
-    volumes:
-      - ./web/src:/usr/src/app/src
     networks:
       - internal_network
   nginx:
