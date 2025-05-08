@@ -5,19 +5,24 @@ services:
       context: ./web
       dockerfile: Dockerfile-prod
     container_name: web
-    command: npm run build && tail -f /dev/null
+    command: serve -s build -l 5173
+    ports:
+      - "5173:5173"
     environment:
-      - PORT=3000
-    restart: unless-stopped
+      - PORT=5173
+    restart: always
+    stdin_open: true
+    tty: true
     networks:
       - internal_network
+
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
     ports:
       - "80:80"
     volumes:
-      - ./web/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./web/nginx/nginx-dev.conf:/etc/nginx/conf.d/nginx.conf
     depends_on:
       - web
     networks:
