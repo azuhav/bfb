@@ -14,7 +14,23 @@ services:
       - NODE_ENV=development
     restart: unless-stopped
     volumes:
-      - ./web/src:/usr/src/app/src
+      - ./web/src:/app/src
+    networks:
+      - internal_network
+  api:
+    image: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile-dev
+    container_name: api
+    command: npm run dev
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    environment:
+      - PORT=3001
+    volumes:
+      - ./api/src:/app/src
     networks:
       - internal_network
 

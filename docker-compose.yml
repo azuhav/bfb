@@ -14,7 +14,20 @@ services:
     tty: true
     networks:
       - internal_network
-
+  api:
+    image: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile-prod
+    container_name: api
+    command: npm run start
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    environment:
+      - PORT=3001
+    networks:
+      - internal_network
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
