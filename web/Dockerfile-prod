@@ -10,6 +10,4 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 5173
-
-RUN npm install -g -n serve
+EXPOSE 3000
