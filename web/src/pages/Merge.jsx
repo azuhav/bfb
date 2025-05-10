@@ -32,7 +32,7 @@ export function Merge() {
       formData.append('file', file)
 
       try {
-        const response = await axios.post('/upload', formData, {
+        const response = await axios.post('/api/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -58,7 +58,7 @@ export function Merge() {
   const FileDownload = () => {
     const downloadFile = async () => {
       try {
-        const response = await axios.get('/download', {
+        const response = await axios.get('/api/download', {
           responseType: 'blob',
         })
 

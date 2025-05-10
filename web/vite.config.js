@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
-  console.log('Command:', command); // 'serve' for dev, 'build' for build
+  console.log('Command:', command);
   console.log('Mode:', mode);
   if (mode === 'development') {
     return {
@@ -14,6 +14,7 @@ export default defineConfig(({ command, mode }) => {
         watch: {
           usePolling: true,
         },
+        allowedHosts: ['web']
       },
     }
   } else {
